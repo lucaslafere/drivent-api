@@ -129,4 +129,22 @@ There are several things you need to do when you add new ENV VARIABLES:
 - Add them (prod version) to your github repo secrets. They will be used to generate the `.env` file on deploy.
 - Add them (prod version) to test.yml file on .github/workflows/test.yml.
 # drivent-ts-api
-# drivent-ts-api
+
+## Tickets
+```yml
+GET /tickets
+    - headers: {}
+RESPONSE IN SUCCESS
+    - status: 200
+    - body: [{id: any_id, type: 'Presential' or 'Online', price: any_price}]
+```
+
+## Accommodations
+```yml
+GET /accommodations
+    - headers: {}
+RESPONSE IN SUCCESS
+    - status: 200
+    - body: [{id: any_id, type: 'Inn' or 'WithoutInn', price: any_price}]
+```
+
