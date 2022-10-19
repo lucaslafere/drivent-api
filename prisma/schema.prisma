@@ -67,3 +67,25 @@ model Address {
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
 }
+
+model Ticket {
+  id    Int        @id @default(autoincrement())
+  type  TicketType
+  price Int
+}
+
+model Accommodation {
+  id    Int               @id @default(autoincrement())
+  type  AccommodationType
+  price Int
+}
+
+enum TicketType {
+  Presential
+  Online
+}
+
+enum AccommodationType {
+  Inn
+  WithoutInn
+}

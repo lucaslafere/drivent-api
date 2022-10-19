@@ -16,7 +16,21 @@ async function main() {
     });
   }
 
-  console.log({ event });
+  const tickets = await prisma.ticket.findMany()
+  if(!tickets.some(ticket => ticket.type === 'Online')) {
+    await prisma.ticket.create({data: {price: 250, type: 'Online'}})
+  }
+  if(!tickets.some(ticket => ticket.type === 'Presential')) {
+    await prisma.ticket.create({data: {price: 100, type: 'Presential'}})
+  }
+
+  const accommodations = await prisma.accommodation.findMany()
+  if(!accommodations.some(accommodation => accommodation.type === 'Inn')) {
+    await prisma.accommodation.create({data: {price: 350, type: 'Inn'}})
+  }
+  if(!accommodations.some(accommodation => accommodation.type === 'WithoutInn')) {
+    await prisma.accommodation.create({data: {price: 0, type: 'WithoutInn'}})
+  }
 }
 
 main()
