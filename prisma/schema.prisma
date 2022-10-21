@@ -18,6 +18,7 @@ model User {
   updatedAt  DateTime     @updatedAt
   Session    Session[]
   Enrollment Enrollment[]
+  userTicket UserTicket[]
 }
 
 model Session {
@@ -30,14 +31,15 @@ model Session {
 }
 
 model Event {
-  id                 Int      @id @default(autoincrement())
-  title              String   @db.VarChar(255)
-  backgroundImageUrl String   @db.VarChar(255)
-  logoImageUrl       String   @db.VarChar(255)
+  id                 Int          @id @default(autoincrement())
+  title              String       @db.VarChar(255)
+  backgroundImageUrl String       @db.VarChar(255)
+  logoImageUrl       String       @db.VarChar(255)
   startsAt           DateTime
   endsAt             DateTime
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  userTicket         UserTicket[]
 }
 
 model Enrollment {
@@ -66,6 +68,17 @@ model Address {
   Enrollment    Enrollment @relation(fields: [enrollmentId], references: [id])
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
+}
+
+model UserTicket {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  Event     Event?   @relation(fields: [eventId], references: [id])
+  eventId   Int?
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
+
+  @@unique([eventId, userId])
 }
 
 model Ticket {
