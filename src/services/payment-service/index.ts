@@ -1,10 +1,11 @@
-import ticketRepository from '@/repositories/ticket-repository';
+import paymentRepository from '@/repositories/payment-repository';
 import { UserTicket } from '@prisma/client';
+import eventsService from '../events-service';
 
-async function createPurchaseEntry(): Promise<Partial<UserTicket>> {
-  // const response = await ticketRepository.insert(data);
-  // return response;
-  return;
+async function createPurchaseEntry(userId: number): Promise<Partial<UserTicket>> {
+  const { id: eventId } = await eventsService.getFirstEvent();
+  const response = await paymentRepository.insert(userId, eventId);
+  return response;
 }
 
 const paymentService = {
