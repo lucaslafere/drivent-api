@@ -4,8 +4,12 @@ async function findAll() {
   return prisma.ticket.findMany();
 }
 
+// async function insert(data) {
+//   return prisma.ticket.create({ data });
+// }
+
 const ticketRepository = {
-    findAll,
+  findAll,
 };
 
 export default ticketRepository;
