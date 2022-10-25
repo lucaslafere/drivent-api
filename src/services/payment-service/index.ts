@@ -8,8 +8,15 @@ async function createPurchaseEntry(userId: number): Promise<Partial<UserTicket>>
   return response;
 }
 
+async function findPurchaseEntry(userId: number): Promise<Partial<UserTicket>> {
+  const { id: eventId } = await eventsService.getFirstEvent();
+  const response = await paymentRepository.find(userId, eventId);
+  return response;
+}
+
 const paymentService = {
   createPurchaseEntry,
+  findPurchaseEntry,
 };
 
 export default paymentService;
