@@ -71,16 +71,17 @@ model Address {
 }
 
 model UserTicket {
-  id              Int           @id @default(autoincrement())
-  createdAt       DateTime      @default(now())
-  Event           Event         @relation(fields: [eventId], references: [id])
+  id              Int              @id @default(autoincrement())
+  createdAt       DateTime         @default(now())
+  Event           Event            @relation(fields: [eventId], references: [id])
   eventId         Int
-  User            User          @relation(fields: [userId], references: [id])
+  User            User             @relation(fields: [userId], references: [id])
   userId          Int
-  Ticket          Ticket        @relation(fields: [ticketId], references: [id])
+  Ticket          Ticket           @relation(fields: [ticketId], references: [id])
   ticketId        Int
-  Accommodation   Accommodation @relation(fields: [accommodationId], references: [id])
+  Accommodation   Accommodation    @relation(fields: [accommodationId], references: [id])
   accommodationId Int
+  RoomUserTicket  RoomUserTicket[]
 
   @@unique([eventId, userId])
 }
@@ -99,6 +100,33 @@ model Accommodation {
   userTicket UserTicket[]
 }
 
+model Hotel {
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(255)
+  imageUrl String @db.VarChar(255)
+  Room     Room[]
+}
+
+model Room {
+  id             Int              @id @default(autoincrement())
+  number         Int
+  type           RoomType
+  hotelId        Int
+  Hotel          Hotel            @relation(fields: [hotelId], references: [id])
+  RoomUserTicket RoomUserTicket[]
+
+  @@unique([hotelId, number])
+}
+
+model RoomUserTicket {
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime   @default(now())
+  Room         Room       @relation(fields: [roomId], references: [id])
+  roomId       Int
+  UserTicket   UserTicket @relation(fields: [userTicketId], references: [id])
+  userTicketId Int
+}
+
 enum TicketType {
   Presential
   Online
@@ -107,4 +135,10 @@ enum TicketType {
 enum AccommodationType {
   Inn
   WithoutInn
+}
+
+enum RoomType {
+  Single
+  Double
+  Triple
 }
