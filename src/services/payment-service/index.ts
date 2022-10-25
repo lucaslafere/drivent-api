@@ -10,16 +10,17 @@ async function createPurchaseEntry(
   accommodation: AccommodationType = 'WithoutInn',
 ): Promise<TUserTicketResponse> {
   const { id: eventId } = await eventsService.getFirstEvent();
-  const { id: ticketId } = await ticketsService.getTicketByType(type);
+  const { type: ticketType, id: ticketId } = await ticketsService.getTicketByType(type);
   const { type: accommodationType, id: accommodationId } = await accommodationsService.getAccommodationByType(
     accommodation,
   );
   const response = await paymentRepository.insert(userId, eventId, ticketId, accommodationId);
-  return { ...response, accommodationType };
+  return { ...response, ticketType, accommodationType };
 }
 
 type TUserTicketResponse = {
   id: number;
+  ticketType: TicketType;
   accommodationType: AccommodationType;
 };
 
