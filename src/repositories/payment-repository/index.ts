@@ -16,8 +16,16 @@ async function insert(
   });
 }
 
+async function find(userId: number, eventId: number) {
+  return prisma.userTicket.findFirst({
+    where: {
+      AND: [{ userId }, { eventId }],
+    },
+  });
+}
 const paymentRepository = {
   insert,
+  find,
 };
 
 export default paymentRepository;

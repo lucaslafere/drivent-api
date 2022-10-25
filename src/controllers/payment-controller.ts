@@ -11,3 +11,9 @@ export async function confirmTicketPurchase(req: AuthenticatedRequest, res: Resp
   res.status(httpStatus.CREATED).send(result);
   return;
 }
+
+export async function findTicketPurchase(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+  const result = await paymentService.findPurchaseEntry(userId);
+  res.status(httpStatus.OK).send(result);
+}
