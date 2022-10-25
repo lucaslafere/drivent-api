@@ -114,6 +114,8 @@ model Room {
   hotelId        Int
   Hotel          Hotel            @relation(fields: [hotelId], references: [id])
   RoomUserTicket RoomUserTicket[]
+
+  @@unique([hotelId, number])
 }
 
 model RoomUserTicket {
