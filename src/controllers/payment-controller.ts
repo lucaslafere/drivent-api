@@ -7,7 +7,7 @@ export async function confirmTicketPurchase(req: AuthenticatedRequest, res: Resp
   const { userId, body: data } = req;
   // ESSE data PROVAVELMENTE VAI RECEBER UM TRATAMENTO DIFERENTE
   // QUANDO ENTRAR NO BONUS DE COMPRA NO CARTÃO USANDO O PAG.ME, ETC
-  const result = await paymentService.createPurchaseEntry(userId);
+  const result = await paymentService.createPurchaseEntry(userId, data.ticketType, data?.accommodation);
   res.status(httpStatus.CREATED).send(result);
   return;
 }

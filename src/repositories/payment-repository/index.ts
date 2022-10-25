@@ -1,7 +1,7 @@
 import { prisma } from '@/config';
 
-async function insert(userId: number, eventId: number) {
-  const data = { userId, eventId };
+async function insert(userId: number, eventId: number, ticketId: number, accommodationId: number) {
+  const data = { userId, eventId, ticketId, accommodationId };
   return prisma.userTicket.create({ data });
 }
 
