@@ -12,6 +12,7 @@ async function findByLabel(label: AccommodationType) {
     },
     select: {
       id: true,
+      type: true,
     },
   });
 }

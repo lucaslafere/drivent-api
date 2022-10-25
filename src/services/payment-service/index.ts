@@ -8,13 +8,20 @@ async function createPurchaseEntry(
   userId: number,
   type: TicketType,
   accommodation: AccommodationType = 'WithoutInn',
-): Promise<Partial<UserTicket>> {
+): Promise<TUserTicketResponse> {
   const { id: eventId } = await eventsService.getFirstEvent();
   const { id: ticketId } = await ticketsService.getTicketByType(type);
-  const { id: accommodationId } = await accommodationsService.getAccommodationByType(accommodation);
+  const { type: accommodationType, id: accommodationId } = await accommodationsService.getAccommodationByType(
+    accommodation,
+  );
   const response = await paymentRepository.insert(userId, eventId, ticketId, accommodationId);
-  return response;
+  return { ...response, accommodationType };
 }
+
+type TUserTicketResponse = {
+  id: number;
+  accommodationType: AccommodationType;
+};
 
 const paymentService = {
   createPurchaseEntry,
