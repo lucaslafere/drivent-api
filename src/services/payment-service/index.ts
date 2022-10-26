@@ -18,7 +18,6 @@ async function createPurchaseEntry(
   return { ...response, ticketType, accommodationType };
 }
 
-
 async function findPurchaseEntry(userId: number): Promise<Partial<UserTicket>> {
   const { id: eventId } = await eventsService.getFirstEvent();
   const response = await paymentRepository.find(userId, eventId);
