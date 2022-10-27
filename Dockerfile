@@ -6,7 +6,7 @@ COPY ./package*.json ./
 COPY ./tsconfig*.json ./
 COPY ./prisma ./prisma
 COPY ./.husky ./
-RUN npm install --location=global npm@8.19.2 --legacy-peer-deps
+RUN npm install --legacy-peer-deps
 COPY . .
 RUN npm run build
 
