@@ -23,9 +23,14 @@ async function find(userId: number, eventId: number) {
     },
   });
 }
+
+async function findUserTicketByUserId(userId: number) {
+  return prisma.userTicket.findFirst({ where: { userId } });
+}
 const paymentRepository = {
   insert,
   find,
+  findUserTicketByUserId,
 };
 
 export default paymentRepository;
